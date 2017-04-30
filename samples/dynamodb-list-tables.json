@@ -1,0 +1,9 @@
+{
+    "TableNames": [
+        "Forum",
+        "ProductCatalog",
+        "Reply",
+        "Thread",
+    ]
+}
+
