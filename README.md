@@ -10,6 +10,14 @@ pip install awscli --upgrade --user
 
 aws ec2 describe-instances
 
+aws ec2 describe-network-interfaces
+
+aws ec2 describe-route-tables
+
+aws ec2 describe-security-groups
+
+aws ec2 describe-vpc-endpoints
+
 　
 
 ## DynamoDB
@@ -49,5 +57,25 @@ aws rds describe-db-instances
 ## redshift
 
 aws redshift describe-clusters
+
+　
+
+## route53
+
+aws route53 list-hosted-zones
+
+aws route53 list-health-checks
+
+　
+
+## S3
+
+aws s3 ls
+
+## SQS
+
+aws sqs list-queues
+
+　
 
 
