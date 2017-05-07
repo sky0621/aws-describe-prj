@@ -4,7 +4,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/sky0621/aws-describe-prj/sqs"
+	"flag"
+
+	"github.com/sky0621/aws-describe-prj/config"
+	"github.com/sky0621/aws-describe-prj/subcommand/sqs"
 	"github.com/spiegel-im-spiegel/gofacade"
 )
 
@@ -14,6 +17,15 @@ const (
 )
 
 func main() {
+	f := flag.String("f", "../../config/config.toml", "Config File Fullpath")
+	flag.Parse()
+
+	// Viperグローバル持ち
+	err := config.ReadConfig(*f)
+	if err != nil {
+		panic(err)
+	}
+
 	cxt := gofacade.NewContext(os.Stdin, os.Stdout, os.Stderr)
 	fcd := setupFacade(cxt)
 	rtn, err := fcd.Run(Name, Version, os.Args[1:])

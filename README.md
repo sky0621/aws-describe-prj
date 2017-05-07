@@ -1,5 +1,22 @@
 # aws-describe-prj
 
+## must set env
+
+AWS_ACCESS_KEY_ID=xxxxxxxxxx
+
+AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxx
+
+AWS_REGION=ap-northeast-1
+
+## function
+
+### get SQS information
+
+$ awsdescribe sqs
+
+
+#####  ----------------------------------------------------
+
 ## aws-cli
 
 pip install awscli --upgrade --user

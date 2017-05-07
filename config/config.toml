@@ -1,0 +1,9 @@
+[aws]
+  [aws.sqs]
+  template = "../template/sqs.md"
+    [[aws.sqs.supplement]]
+    keyword = "fsqueue"
+    title = "タイトル１"
+    [[aws.sqs.supplement]]
+    keyword = "fsqueue2"
+    title = "タイトル２"

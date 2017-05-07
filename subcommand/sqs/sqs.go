@@ -9,6 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
+	"github.com/sky0621/aws-describe-prj/config"
 	"github.com/spiegel-im-spiegel/gofacade"
 )
 
@@ -68,5 +69,7 @@ func (c Context) Run(args []string) int {
 	}
 	c.Output(out.String())
 
+	cfg := config.NewSqsConfig()
+	fmt.Printf("%#v\n", cfg)
 	return gofacade.ExitSuccess
 }
