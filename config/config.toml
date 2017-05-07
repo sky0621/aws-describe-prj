@@ -4,6 +4,8 @@
     [[aws.sqs.supplement]]
     keyword = "fsqueue"
     title = "タイトル１"
+    remarks = "備考１"
     [[aws.sqs.supplement]]
     keyword = "fsqueue2"
     title = "タイトル２"
+    remarks = "備考２"

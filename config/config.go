@@ -42,7 +42,7 @@ func NewSqsConfig() *SqsConfig {
 }
 
 type Supplement struct {
-	Keyword, Title string
+	Keyword, Title, Remarks string
 }
 
 // ReadConfig ...
