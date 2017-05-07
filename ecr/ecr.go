@@ -48,5 +48,7 @@ func (c Context) Run(args []string) int {
 		return gofacade.ExitFailure
 	}
 	c.Output("OK ECR!")
+	c.Output("OK ECR2!")
+
 	return gofacade.ExitSuccess
 }

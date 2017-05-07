@@ -9,17 +9,9 @@ import (
 )
 
 const (
-	// Name はアプリケーション名を定義する
-	Name string = "awsdescribe"
-	// Version はアプリケーションのバージョン番号を定義する
+	Name    string = "awsdescribe"
 	Version string = "0.1.0"
 )
-
-func setupFacade(cxt *gofacade.Context) *gofacade.Facade {
-	fcd := gofacade.NewFacade(cxt)
-	fcd.AddCommand(ecr.Name, ecr.Command(cxt, Name))
-	return fcd
-}
 
 func main() {
 	cxt := gofacade.NewContext(os.Stdin, os.Stdout, os.Stderr)
@@ -29,4 +21,10 @@ func main() {
 		cxt.Error(fmt.Sprintln(err))
 	}
 	os.Exit(rtn)
+}
+
+func setupFacade(cxt *gofacade.Context) *gofacade.Facade {
+	fcd := gofacade.NewFacade(cxt)
+	fcd.AddCommand(ecr.Name, ecr.Command(cxt, Name))
+	return fcd
 }
