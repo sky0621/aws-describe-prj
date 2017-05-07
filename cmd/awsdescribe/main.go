@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/sky0621/aws-describe-prj/ecr"
+	"github.com/sky0621/aws-describe-prj/sqs"
 	"github.com/spiegel-im-spiegel/gofacade"
 )
 
@@ -25,6 +25,6 @@ func main() {
 
 func setupFacade(cxt *gofacade.Context) *gofacade.Facade {
 	fcd := gofacade.NewFacade(cxt)
-	fcd.AddCommand(ecr.Name, ecr.Command(cxt, Name))
+	fcd.AddCommand(sqs.Name, sqs.Command(cxt, Name))
 	return fcd
 }

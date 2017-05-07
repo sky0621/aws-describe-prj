@@ -1,15 +1,19 @@
-package ecr
+package sqs
 
 import (
 	"flag"
 	"fmt"
 	"strings"
 
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/spiegel-im-spiegel/gofacade"
 )
 
 // Name はコマンド名を定義する
-const Name string = "ecr"
+const Name string = "sqs"
 
 // Context はコマンドのコンテキストを定義する
 type Context struct {
@@ -26,13 +30,13 @@ func Command(cxt *gofacade.Context, appName string) *Context {
 
 // Synopsis はコマンドの概要を返す
 func (c Context) Synopsis() string {
-	return "Get ECR information"
+	return "Get sqs information"
 }
 
 // Help はコマンドのヘルプを返す
 func (c Context) Help() string {
 	helpText := `
-Usage: awsdescribe ecr
+Usage: awsdescribe sqs
 `
 	return fmt.Sprintln(strings.TrimSpace(helpText))
 }
@@ -47,8 +51,22 @@ func (c Context) Run(args []string) int {
 	if err := flags.Parse(args); err != nil {
 		return gofacade.ExitFailure
 	}
-	c.Output("OK ECR!")
-	c.Output("OK ECR2!")
+
+	// Credentialは環境変数セット済の前提
+	awsCfg := &aws.Config{}
+	awsCfg.Credentials = credentials.NewEnvCredentials()
+
+	sess, err := session.NewSession(awsCfg)
+	if err != nil {
+		panic(err)
+	}
+
+	cli := sqs.New(sess)
+	out, err := cli.ListQueues(&sqs.ListQueuesInput{})
+	if err != nil {
+		panic(err)
+	}
+	c.Output(out.String())
 
 	return gofacade.ExitSuccess
 }
