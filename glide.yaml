@@ -1,0 +1,12 @@
+package: github.com/sky0621/aws-describe-prj
+import:
+- package: github.com/aws/aws-sdk-go
+  version: ~1.8.20
+  subpackages:
+  - aws
+  - aws/credentials
+  - aws/session
+  - service/sqs
+- package: github.com/spf13/viper
+- package: github.com/spiegel-im-spiegel/gofacade
+  version: ~0.1.0
