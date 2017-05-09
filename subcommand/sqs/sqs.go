@@ -9,7 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
-	"github.com/sky0621/aws-describe-prj/config"
+	"github.com/sky0621/aws-describe-prj/handler"
 	"github.com/spiegel-im-spiegel/gofacade"
 )
 
@@ -50,7 +50,7 @@ func (c Context) Run(args []string) int {
 	}
 	// Parse commandline flag
 	if err := flags.Parse(args); err != nil {
-		return gofacade.ExitFailure
+		return gofacade.ExitCodeError
 	}
 
 	// Credentialは環境変数セット済の前提
@@ -69,7 +69,11 @@ func (c Context) Run(args []string) int {
 	}
 	c.Output(out.String())
 
-	cfg := config.NewSqsConfig()
-	fmt.Printf("%#v\n", cfg)
-	return gofacade.ExitSuccess
+	h := &handler.SqsHandler{}
+	err = h.Handle()
+	if err != nil {
+		panic(err)
+	}
+
+	return gofacade.ExitCodeOK
 }
