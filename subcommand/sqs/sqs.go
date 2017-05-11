@@ -5,10 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/credentials"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/sqs"
+	fs_aws "github.com/sky0621/aws-describe-prj/aws"
+	"github.com/sky0621/aws-describe-prj/config"
 	"github.com/sky0621/aws-describe-prj/handler"
 	"github.com/spiegel-im-spiegel/gofacade"
 )
@@ -53,21 +51,17 @@ func (c Context) Run(args []string) int {
 		return gofacade.ExitCodeError
 	}
 
-	// Credentialは環境変数セット済の前提
-	awsCfg := &aws.Config{}
-	awsCfg.Credentials = credentials.NewEnvCredentials()
-
-	sess, err := session.NewSession(awsCfg)
+	sess, err := fs_aws.NewSession()
 	if err != nil {
 		panic(err)
 	}
 
-	cli := sqs.New(sess)
-	out, err := cli.ListQueues(&sqs.ListQueuesInput{})
+	info, err := fs_aws.GetSqsInformation(fs_aws.NewSqs(sess), config.NewSqsConfig())
 	if err != nil {
 		panic(err)
 	}
-	c.Output(out.String())
+
+	c.Output(info.String())
 
 	h := &handler.SqsHandler{}
 	err = h.Handle()
