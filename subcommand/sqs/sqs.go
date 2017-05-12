@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"strings"
 
-	fs_aws "github.com/sky0621/aws-describe-prj/aws"
-	"github.com/sky0621/aws-describe-prj/config"
 	"github.com/sky0621/aws-describe-prj/handler"
 	"github.com/spiegel-im-spiegel/gofacade"
 )
@@ -51,23 +49,13 @@ func (c Context) Run(args []string) int {
 		return gofacade.ExitCodeError
 	}
 
-	sess, err := fs_aws.NewSession()
-	if err != nil {
-		panic(err)
-	}
-
-	info, err := fs_aws.GetSqsInformation(fs_aws.NewSqs(sess), config.NewSqsConfig())
-	if err != nil {
-		panic(err)
-	}
-
-	c.Output(info.String())
-
 	h := &handler.SqsHandler{}
-	err = h.Handle()
+	output, err := h.Handle()
 	if err != nil {
 		panic(err)
 	}
+
+	c.Output(output.String())
 
 	return gofacade.ExitCodeOK
 }

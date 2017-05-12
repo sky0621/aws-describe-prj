@@ -1,5 +1,7 @@
 package handler
 
+import "bytes"
+
 type AwsHandler interface {
-	Handle() error
+	Handle() (output *bytes.Buffer, err error)
 }
