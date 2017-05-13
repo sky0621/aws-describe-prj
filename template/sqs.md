@@ -1,6 +1,6 @@
 SQS Information
 
-| QUEUE URL |
-| :--- |
-{{range .QueueURLs}}| {{.}} |
+| usecase | environment | queue_name | url |
+| :--- | :--- | :--- | :--- |
+{{range .}}| {{.Usecase}} | {{.Environment}} | {{.QueueName}} | {{.QueueURL}} |
 {{end}}
