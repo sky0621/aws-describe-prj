@@ -1,7 +1,6 @@
 SQS Information
 
 | QUEUE URL |
-| --- |
-{{range .QueueURLs}}
-| {{.}} |
+| :--- |
+{{range .QueueURLs}}| {{.}} |
 {{end}}

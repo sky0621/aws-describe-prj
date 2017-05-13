@@ -1,11 +1,12 @@
 [aws]
   [aws.sqs]
   template = "../../template/sqs.md"
-    [[aws.sqs.supplement]]
-    keyword = "fsqueue"
-    title = "タイトル１"
-    remarks = "備考１"
-    [[aws.sqs.supplement]]
-    keyword = "fsqueue2"
-    title = "タイトル２"
-    remarks = "備考２"
+  [aws.sqs.supplement."fs-aws-describe-prj-develop-queue01"]
+  usecase = "開発環境用キュー"
+  environment = "develop"
+  [aws.sqs.supplement."fs-aws-describe-prj-queue01"]
+  usecase = "本番環境用キュー"
+  environment = "production"
+  [aws.sqs.supplement."fs-aws-describe-prj-staging-queue01"]
+  usecase = "ステージング環境用キュー"
+  environment = "staging"

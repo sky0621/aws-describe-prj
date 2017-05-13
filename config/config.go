@@ -26,11 +26,11 @@ func NewAwsConfig() *AwsConfig {
 
 type SqsConfig struct {
 	Template    string
-	Supplements []Supplement
+	Supplements map[string]Supplement
 }
 
 func NewSqsConfig() *SqsConfig {
-	var s []Supplement
+	var s map[string]Supplement
 	err := viper.UnmarshalKey("aws.sqs.supplement", &s)
 	if err != nil {
 		panic(err)
@@ -42,7 +42,7 @@ func NewSqsConfig() *SqsConfig {
 }
 
 type Supplement struct {
-	Keyword, Title, Remarks string
+	Usecase, Environment string
 }
 
 // ReadConfig ...
