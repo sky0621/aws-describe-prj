@@ -6,6 +6,10 @@ import (
 
 	"strings"
 
+	"regexp"
+
+	"fmt"
+
 	fs_aws "github.com/sky0621/aws-describe-prj/aws"
 	"github.com/sky0621/aws-describe-prj/config"
 )
@@ -29,7 +33,7 @@ func (h *SqsHandler) Handle() (output *bytes.Buffer, err error) {
 	conf := config.NewSqsConfig()
 
 	// マージ
-	desc := mergeSqsInformation(info.QueueURLs, conf.Supplements)
+	desc := mergeSqsInformation(info.QueueURLs, conf)
 
 	// 表示のためのテンプレートを取得して適用
 	tmpl := template.Must(template.ParseFiles(conf.Template))
@@ -46,12 +50,24 @@ type SqsDescription struct {
 	Usecase, Environment, QueueName, QueueURL string
 }
 
-func mergeSqsInformation(queueURLs []*string, supplements map[string]config.Supplement) []SqsDescription {
+// TODO 要リファクタ
+func mergeSqsInformation(queueURLs []*string, conf *config.SqsConfig) []SqsDescription {
 	descs := []SqsDescription{}
+	f := conf.Filter
+	inFilter := regexp.MustCompile(f.In)
+	outFilter := regexp.MustCompile(f.Out)
 	for _, url := range queueURLs {
 		urlSeps := strings.Split(*url, "/")
 		qname := urlSeps[len(urlSeps)-1]
-		s := supplements[qname]
+		if f.In != "" && inFilter.FindString(qname) == "" {
+			fmt.Printf("Not match in filter: %v\n", qname)
+			continue
+		}
+		if f.Out != "" && outFilter.FindString(qname) != "" {
+			fmt.Printf("Match out filter: %v\n", qname)
+			continue
+		}
+		s := conf.Supplements[qname]
 		desc := SqsDescription{
 			Usecase:     s.Usecase,
 			Environment: s.Environment,

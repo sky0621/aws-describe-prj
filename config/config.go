@@ -26,6 +26,7 @@ func NewAwsConfig() *AwsConfig {
 
 type SqsConfig struct {
 	Template    string
+	Filter      Filter
 	Supplements map[string]Supplement
 }
 
@@ -35,10 +36,18 @@ func NewSqsConfig() *SqsConfig {
 	if err != nil {
 		panic(err)
 	}
+	var f Filter
+	err = viper.UnmarshalKey("aws.sqs.filter", &f)
 	return &SqsConfig{
 		Template:    viper.GetString("aws.sqs.template"),
+		Filter:      f,
 		Supplements: s,
 	}
+}
+
+type Filter struct {
+	In  string
+	Out string
 }
 
 type Supplement struct {
