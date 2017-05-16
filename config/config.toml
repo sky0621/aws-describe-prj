@@ -4,7 +4,7 @@
 
   [aws.sqs.filter]
   in = "fs-aws-*"
-  out = ".*[0-9]{8}"
+  out = [".*[0-9]{8}", ".*test.*", ".*_[0-9a-zA-Z]{16}"]
 
   [aws.sqs.supplement."fs-aws-describe-prj-develop-queue01"]
   usecase = "開発環境用キュー１"

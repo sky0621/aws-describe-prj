@@ -55,7 +55,10 @@ func mergeSqsInformation(queueURLs []*string, conf *config.SqsConfig) []SqsDescr
 	descs := []SqsDescription{}
 	f := conf.Filter
 	inFilter := regexp.MustCompile(f.In)
-	outFilter := regexp.MustCompile(f.Out)
+	var outFilters []*regexp.Regexp
+	for _, out := range f.Out {
+		outFilters = append(outFilters, regexp.MustCompile(out))
+	}
 	for _, url := range queueURLs {
 		urlSeps := strings.Split(*url, "/")
 		qname := urlSeps[len(urlSeps)-1]
@@ -63,8 +66,15 @@ func mergeSqsInformation(queueURLs []*string, conf *config.SqsConfig) []SqsDescr
 			fmt.Printf("Not match in filter: %v\n", qname)
 			continue
 		}
-		if f.Out != "" && outFilter.FindString(qname) != "" {
-			fmt.Printf("Match out filter: %v\n", qname)
+		nodisp := false
+		for _, filter := range outFilters {
+			if filter.FindString(qname) != "" {
+				fmt.Printf("Match out filter: %v\n", qname)
+				nodisp = true
+				break
+			}
+		}
+		if nodisp {
 			continue
 		}
 		s := conf.Supplements[qname]

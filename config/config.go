@@ -47,7 +47,7 @@ func NewSqsConfig() *SqsConfig {
 
 type Filter struct {
 	In  string
-	Out string
+	Out []string
 }
 
 type Supplement struct {
