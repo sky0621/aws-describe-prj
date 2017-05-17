@@ -21,3 +21,14 @@
   [aws.sqs.supplement."fs-aws-describe-prj-queue02"]
   usecase = "本番環境用キュー２"
   environment = "production"
+
+  [aws.ec2]
+  template = "../../template/ec2.md"
+
+  [aws.ec2.filter]
+  in = ""
+  out = []
+
+  [aws.ec2.supplement."fs-aws-describe-prj-develop-queue01"]
+  type = "開発環境用キュー１"
+  environment = "develop"

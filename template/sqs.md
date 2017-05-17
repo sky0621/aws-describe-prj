@@ -1,4 +1,4 @@
-SQS Information
+SQS
 
 | usecase | environment | queue_name | url |
 | :--- | :--- | :--- | :--- |
