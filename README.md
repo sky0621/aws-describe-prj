@@ -1,6 +1,6 @@
 # aws-describe-prj
 
-## must set env
+## AWS用環境変数セット済みの前提
 
 AWS_ACCESS_KEY_ID=xxxxxxxxxx
 
@@ -8,7 +8,17 @@ AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxx
 
 AWS_REGION=ap-northeast-1
 
-## function
+## 機能
+
+### ・AWS機能別にサブコマンド実行
+
+### ・テンプレート形式(template配下)による出力内容制御(※現在はMarkDown形式のみ用意)
+
+### ・一覧表示項目に手動で足したい情報を設定ファイル(config配下)に記載可能
+
+### ・表示したくない分をフィルタリング可能(設定ファイル(config配下)に記載)
+
+## コマンド
 
 ### get SQS information
 
