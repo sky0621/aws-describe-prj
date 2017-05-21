@@ -4,6 +4,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/sky0621/aws-describe-prj/structure"
+	"github.com/sky0621/aws-describe-prj/util"
 )
 
 func NewEc2(sess *session.Session) *ec2.EC2 {
@@ -19,13 +20,18 @@ func GetEc2Information(cli *ec2.EC2) (*structure.Ec2Information, error) {
 	var reservations []*structure.Reservation
 	for _, reservation := range output.Reservations {
 		for _, instance := range reservation.Instances {
+			if instance == nil {
+				continue
+			}
+			//fmt.Printf("%#v\n", *instance)
 			reservations = append(reservations, &structure.Reservation{
-				InstanceType:     *instance.InstanceType,
-				PublicDnsName:    *instance.PublicDnsName,
-				PublicIpAddress:  *instance.PublicIpAddress,
-				PrivateDnsName:   *instance.PrivateDnsName,
-				PrivateIpAddress: *instance.PrivateIpAddress,
-				InstanceState:    *instance.State.Name,
+				InstanceID:       util.ToString(instance.InstanceId),
+				InstanceType:     util.ToString(instance.InstanceType),
+				PublicDnsName:    util.ToString(instance.PublicDnsName),
+				PublicIpAddress:  util.ToString(instance.PublicIpAddress),
+				PrivateDnsName:   util.ToString(instance.PrivateDnsName),
+				PrivateIpAddress: util.ToString(instance.PrivateIpAddress),
+				InstanceState:    util.ToString(instance.State.Name),
 			})
 		}
 	}

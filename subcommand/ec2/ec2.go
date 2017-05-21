@@ -49,7 +49,7 @@ func (c Context) Run(args []string) int {
 		return gofacade.ExitCodeError
 	}
 
-	h := &handler.ec2Handler{}
+	h := &handler.Ec2Handler{}
 	output, err := h.Handle()
 	if err != nil {
 		panic(err)

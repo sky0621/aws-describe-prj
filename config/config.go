@@ -45,6 +45,27 @@ func NewSqsConfig() *SqsConfig {
 	}
 }
 
+type Ec2Config struct {
+	Template    string
+	Filter      Filter
+	Supplements map[string]Supplement
+}
+
+func NewEc2Config() *Ec2Config {
+	var s map[string]Supplement
+	err := viper.UnmarshalKey("aws.ec2.supplement", &s)
+	if err != nil {
+		panic(err)
+	}
+	var f Filter
+	err = viper.UnmarshalKey("aws.ec2.filter", &f)
+	return &Ec2Config{
+		Template:    viper.GetString("aws.ec2.template"),
+		Filter:      f,
+		Supplements: s,
+	}
+}
+
 type Filter struct {
 	In  string
 	Out []string

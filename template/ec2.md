@@ -1,6 +1,6 @@
-EC2 Information
+EC2
 
-| type | environment | hostname | IP | domain | SSL |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-{{range .}}| {{.Type}} | {{.Environment}} | {{.Hostname}} | {{.IP}} | {{.Domain}} | {{.SSL}} |
+| type | environment | instance type | [public] hostname | [public] IP | [private] hostname | [private] IP | state |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+{{range .}}| {{.Type}} | {{.Environment}} | {{.InstanceType}} | {{.PublicDnsName}} | {{.PublicIpAddress}} | {{.PrivateDnsName}} | {{.PrivateIpAddress}} | {{.InstanceState}} |
 {{end}}

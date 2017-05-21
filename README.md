@@ -14,6 +14,31 @@ AWS_REGION=ap-northeast-1
 
 $ awsdescribe sqs
 
+[output example]
+
+SQS
+
+| usecase | environment | queue_name | url |
+| :--- | :--- | :--- | :--- |
+| 開発環境用キュー１ | develop | example-develop-queue01 | https://sqs.ap-northeast-1.amazonaws.com/0123456789/example-develop-queue01 |
+| 本番環境用キュー１ | production | example-queue01 | https://sqs.ap-northeast-1.amazonaws.com/0123456789/example-queue01 |
+| ステージング環境用キュー１ | staging | example-staging-queue01 | https://sqs.ap-northeast-1.amazonaws.com/0123456789/example-staging-queue01 |
+
+
+### get EC2 information
+
+$ awsdescribe ec2
+
+[output example]
+
+EC2
+
+| type | environment | instance type | [public] hostname | [public] IP | [private] hostname | [private] IP | state |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 開発環境用インスタンス | develop | t2.micro | ec2-99-99-9-999.ap-northeast-1.compute.amazonaws.com | 99.99.9.999 | ip-999-99-99-999.ap-northeast-1.compute.internal | 999.99.99.999 | running |
+|  |  | t2.micro |  |  | ip-999-9-9-999.ap-northeast-1.compute.internal | 999.99.9.999 | stopped |
+
+
 
 #####  ----------------------------------------------------
 
