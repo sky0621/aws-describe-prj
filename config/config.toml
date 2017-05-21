@@ -6,19 +6,19 @@
     in = "fs-aws-*"
     out = [".*[0-9]{8}", ".*test.*", ".*_[0-9a-zA-Z]{16}"]
 
-    [aws.sqs.supplement."fs-aws-describe-prj-develop-queue01"]
+    [aws.sqs.supplement."example-develop-queue01"]
     usecase = "開発環境用キュー１"
     environment = "develop"
 
-    [aws.sqs.supplement."fs-aws-describe-prj-queue01"]
+    [aws.sqs.supplement."example-queue01"]
     usecase = "本番環境用キュー１"
     environment = "production"
 
-    [aws.sqs.supplement."fs-aws-describe-prj-staging-queue01"]
+    [aws.sqs.supplement."example-staging-queue01"]
     usecase = "ステージング環境用キュー１"
     environment = "staging"
 
-    [aws.sqs.supplement."fs-aws-describe-prj-queue02"]
+    [aws.sqs.supplement."example-queue02"]
     usecase = "本番環境用キュー２"
     environment = "production"
 
@@ -29,6 +29,6 @@
   in = ""
   out = []
 
-  [aws.ec2.supplement."i-014100b189d61989c"]
+  [aws.ec2.supplement."i-0123456789"]
   usecase = "開発環境用インスタンス"
   environment = "develop"
