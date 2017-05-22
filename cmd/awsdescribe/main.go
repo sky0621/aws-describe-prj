@@ -8,6 +8,7 @@ import (
 
 	"github.com/sky0621/aws-describe-prj/config"
 	"github.com/sky0621/aws-describe-prj/subcommand/ec2"
+	"github.com/sky0621/aws-describe-prj/subcommand/rds"
 	"github.com/sky0621/aws-describe-prj/subcommand/sqs"
 	"github.com/spiegel-im-spiegel/gofacade"
 )
@@ -40,5 +41,6 @@ func setupFacade(cxt *gofacade.Context) *gofacade.Facade {
 	fcd := gofacade.NewFacade(cxt)
 	fcd.AddCommand(sqs.Name, sqs.Command(cxt, Name))
 	fcd.AddCommand(ec2.Name, ec2.Command(cxt, Name))
+	fcd.AddCommand(rds.Name, rds.Command(cxt, Name))
 	return fcd
 }

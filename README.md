@@ -49,6 +49,19 @@ EC2
 |  |  | t2.micro |  |  | ip-999-9-9-999.ap-northeast-1.compute.internal | 999.99.9.999 | stopped |
 
 
+### get RDS information
+
+$ awsdescribe rds
+
+[output example]
+
+RDS
+
+| type | environment | instance type | DB name | address | port | engine | version | username | state |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 開発環境用 | develop | db.t2.micro |  | example.xxxxxxxxxx.ap-northeast-1.rds.amazonaws.com | 5432 | postgres | 9.6.2 | dummyuser | available |
+| ステージング環境用 | staging | db.t2.micro | testdb | gginstance.xxxxxxxx.ap-northeast-1.rds.amazonaws.com | 3306 | mysql | 5.6.27 | testuser | available |
+
 
 #####  ----------------------------------------------------
 

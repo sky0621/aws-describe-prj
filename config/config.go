@@ -66,6 +66,27 @@ func NewEc2Config() *Ec2Config {
 	}
 }
 
+type RdsConfig struct {
+	Template    string
+	Filter      Filter
+	Supplements map[string]Supplement
+}
+
+func NewRdsConfig() *RdsConfig {
+	var s map[string]Supplement
+	err := viper.UnmarshalKey("aws.rds.supplement", &s)
+	if err != nil {
+		panic(err)
+	}
+	var f Filter
+	err = viper.UnmarshalKey("aws.rds.filter", &f)
+	return &RdsConfig{
+		Template:    viper.GetString("aws.rds.template"),
+		Filter:      f,
+		Supplements: s,
+	}
+}
+
 type Filter struct {
 	In  string
 	Out []string

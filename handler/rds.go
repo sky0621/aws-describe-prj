@@ -9,26 +9,27 @@ import (
 	"github.com/sky0621/aws-describe-prj/structure"
 )
 
-type Ec2Handler struct {
+type RdsHandler struct {
 }
 
-func (h *Ec2Handler) Handle() (output *bytes.Buffer, err error) {
+func (h *RdsHandler) Handle() (output *bytes.Buffer, err error) {
 	sess, err := fs_aws.NewSession()
 	if err != nil {
 		return nil, err
 	}
 
-	// とりあえずEc2の情報
-	info, err := fs_aws.GetEc2Information(fs_aws.NewEc2(sess))
+	// とりあえずRdsの情報
+	info, err := fs_aws.GetRdsInformation(fs_aws.NewRds(sess))
 	if err != nil {
 		return nil, err
 	}
 
 	// 表示に付け足す情報を設定ファイルから取得
-	conf := config.NewEc2Config()
+	conf := config.NewRdsConfig()
 
 	// マージ
-	desc := mergeEc2Information(info.Reservations, conf)
+	desc := mergeRdsInformation(info.Instances, conf)
+	//fmt.Printf("%#v\n", desc)
 
 	// 表示のためのテンプレートを取得して適用
 	tmpl := template.Must(template.ParseFiles(conf.Template))
@@ -41,20 +42,22 @@ func (h *Ec2Handler) Handle() (output *bytes.Buffer, err error) {
 	return buf, nil
 }
 
-type Ec2Description struct {
-	Usecase, Environment, InstanceType, PublicDnsName, PublicIpAddress, PrivateDnsName, PrivateIpAddress, InstanceState string
+type RdsDescription struct {
+	Type, Environment, DBInstanceClass, DBName, EndpointAddress, Engine, EngineVersion, MasterUsername, DBInstanceStatus string
+	EndpointPort                                                                                                         int64
 }
 
 // TODO 要リファクタ
-func mergeEc2Information(reservations []*structure.Reservation, conf *config.Ec2Config) []Ec2Description {
-	descs := []Ec2Description{}
+func mergeRdsInformation(instances []*structure.RdsInstance, conf *config.RdsConfig) []RdsDescription {
+	descs := []RdsDescription{}
 	//f := conf.Filter
 	//inFilter := regexp.MustCompile(f.In)
 	//var outFilters []*regexp.Regexp
 	//for _, out := range f.Out {
 	//	outFilters = append(outFilters, regexp.MustCompile(out))
 	//}
-	for _, res := range reservations {
+	for _, res := range instances {
+		//fmt.Printf("%#v\n", res)
 		//if f.In != "" && inFilter.FindString(qname) == "" {
 		//	fmt.Printf("Not match in filter: %v\n", qname)
 		//	continue
@@ -70,16 +73,18 @@ func mergeEc2Information(reservations []*structure.Reservation, conf *config.Ec2
 		//if nodisp {
 		//	continue
 		//}
-		s := conf.Supplements[res.InstanceID]
-		desc := Ec2Description{
-			Usecase:          s.Usecase,
+		s := conf.Supplements["res.XXX"]
+		desc := RdsDescription{
+			Type:             s.Usecase,
 			Environment:      s.Environment,
-			InstanceType:     res.InstanceType,
-			PublicDnsName:    res.PublicDnsName,
-			PublicIpAddress:  res.PublicIpAddress,
-			PrivateDnsName:   res.PrivateDnsName,
-			PrivateIpAddress: res.PrivateIpAddress,
-			InstanceState:    res.InstanceState,
+			DBInstanceClass:  res.DBInstanceClass,
+			DBName:           res.DBName,
+			EndpointAddress:  res.EndpointAddress,
+			EndpointPort:     res.EndpointPort,
+			Engine:           res.Engine,
+			EngineVersion:    res.EngineVersion,
+			MasterUsername:   res.MasterUsername,
+			DBInstanceStatus: res.DBInstanceStatus,
 		}
 		descs = append(descs, desc)
 	}

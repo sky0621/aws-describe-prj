@@ -25,10 +25,21 @@
   [aws.ec2]
   template = "../../template/ec2.md"
 
-  [aws.ec2.filter]
-  in = ""
-  out = []
+    [aws.ec2.filter]
+    in = ""
+    out = []
 
-  [aws.ec2.supplement."i-0123456789"]
-  usecase = "開発環境用インスタンス"
-  environment = "develop"
+    [aws.ec2.supplement."i-0123456789"]
+    usecase = "開発環境用インスタンス"
+    environment = "develop"
+
+  [aws.rds]
+  template = "../../template/rds.md"
+
+    [aws.rds.filter]
+    in = ""
+    out = []
+
+    [aws.rds.supplement."i-0123456789"]
+    usecase = "開発環境用インスタンス"
+    environment = "develop"
