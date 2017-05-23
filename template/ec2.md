@@ -1,6 +1,6 @@
 EC2
 
-| usecase | environment | instance type | [public] hostname | [public] IP | [private] hostname | [private] IP | state |
+| usecase | environment | instance name | instance type | [public] hostname | [public] IP | [private] hostname | [private] IP | state |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-{{range .}}| {{.Usecase}} | {{.Environment}} | {{.InstanceType}} | {{.PublicDnsName}} | {{.PublicIpAddress}} | {{.PrivateDnsName}} | {{.PrivateIpAddress}} | {{.InstanceState}} |
+{{range .}}| {{.Usecase}} | {{.Environment}} | {{.InstanceName}} | {{.InstanceType}} | {{.PublicDnsName}} | {{.PublicIpAddress}} | {{.PrivateDnsName}} | {{.PrivateIpAddress}} | {{.InstanceState}} |
 {{end}}

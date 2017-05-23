@@ -24,8 +24,15 @@ func GetEc2Information(cli *ec2.EC2) (*structure.Ec2Information, error) {
 				continue
 			}
 			//fmt.Printf("%#v\n", *instance)
+			instanceName := ""
+			for _, tag := range instance.Tags {
+				if *tag.Key == "Name" {
+					instanceName = util.ToString(tag.Value)
+				}
+			}
 			reservations = append(reservations, &structure.Reservation{
 				InstanceID:       util.ToString(instance.InstanceId),
+				InstanceName:     instanceName,
 				InstanceType:     util.ToString(instance.InstanceType),
 				PublicDnsName:    util.ToString(instance.PublicDnsName),
 				PublicIpAddress:  util.ToString(instance.PublicIpAddress),

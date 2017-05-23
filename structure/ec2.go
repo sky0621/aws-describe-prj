@@ -5,5 +5,5 @@ type Ec2Information struct {
 }
 
 type Reservation struct {
-	InstanceID, InstanceType, PublicDnsName, PublicIpAddress, PrivateDnsName, PrivateIpAddress, InstanceState string
+	InstanceID, InstanceName, InstanceType, PublicDnsName, PublicIpAddress, PrivateDnsName, PrivateIpAddress, InstanceState string
 }

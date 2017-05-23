@@ -10,13 +10,13 @@ AWS_REGION=ap-northeast-1
 
 ## 機能
 
-### ・AWS機能別にサブコマンド実行
+##### ・AWS機能別にサブコマンド実行
 
-### ・テンプレート形式(template配下)による出力内容制御(※現在はMarkDown形式のみ用意)
+##### ・テンプレート形式(template配下)による出力内容制御(※現在はMarkDown形式のみ用意)
 
-### ・一覧表示項目に手動で足したい情報を設定ファイル(config配下)に記載可能
+##### ・一覧表示項目に手動で足したい情報を設定ファイル(config配下)に記載可能
 
-### ・表示したくない分をフィルタリング可能(設定ファイル(config配下)に記載)
+##### ・表示したくない分をフィルタリング可能(設定ファイル(config配下)に記載)
 
 ## コマンド
 
@@ -43,10 +43,10 @@ $ awsdescribe ec2
 
 EC2
 
-| type | environment | instance type | [public] hostname | [public] IP | [private] hostname | [private] IP | state |
+| usecase | environment | instance name | instance type | [public] hostname | [public] IP | [private] hostname | [private] IP | state |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 開発環境用インスタンス | develop | t2.micro | ec2-99-99-9-999.ap-northeast-1.compute.amazonaws.com | 99.99.9.999 | ip-999-99-99-999.ap-northeast-1.compute.internal | 999.99.99.999 | running |
-|  |  | t2.micro |  |  | ip-999-9-9-999.ap-northeast-1.compute.internal | 999.99.9.999 | stopped |
+| 開発環境用インスタンス | develop | PublisherService | t2.micro | ec2-9999999.ap-northeast-1.compute.amazonaws.com | 99.999.999.99 | ip-9999999.ap-northeast-1.compute.internal | 99.999.999.99 | running |
+|  |  |  | t2.micro |  |  | ip-192-168-1-4.ap-northeast-1.compute.internal | 192.168.1.4 | stopped |
 
 
 ### get RDS information
@@ -57,90 +57,20 @@ $ awsdescribe rds
 
 RDS
 
-| type | environment | instance type | DB name | address | port | engine | version | username | state |
+| usecase | environment | instance type | DB name | address | port | engine | version | username | state |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 開発環境用 | develop | db.t2.micro |  | example.xxxxxxxxxx.ap-northeast-1.rds.amazonaws.com | 5432 | postgres | 9.6.2 | dummyuser | available |
 | ステージング環境用 | staging | db.t2.micro | testdb | gginstance.xxxxxxxx.ap-northeast-1.rds.amazonaws.com | 3306 | mysql | 5.6.27 | testuser | available |
 
 
-#####  ----------------------------------------------------
+## 改修予定
 
-## aws-cli
+##### ・ソート機能を追加
 
-pip install awscli --upgrade --user
+##### ・MarkDown形式以外の出力形式（例：CSV、HTML）に対応
 
-　
+##### ・標準出力以外の出力先に対応
 
-## EC2
+##### ・「all」サブコマンド、ないし、サブコマンドなしの際に全AWSサブコマンドを実行する機能を追加
 
-aws ec2 describe-instances
-
-aws ec2 describe-network-interfaces
-
-aws ec2 describe-route-tables
-
-aws ec2 describe-security-groups
-
-aws ec2 describe-vpc-endpoints
-
-　
-
-## DynamoDB
-
-aws dynamodb list-tables
-
-aws dynamodb describe-table --table-name m_movie
-
-　
-
-## ECR
-
-aws ecr describe-repositories
-
-　
-
-## ElastiCache
-
-aws elasticache describe-cache-clusters
-
-　
-
-## ELB
-
-aws elb describe-load-balancers
-
-　
-
-## RDS
-
-aws rds describe-db-clusters
-
-aws rds describe-db-instances
-
-　
-
-## redshift
-
-aws redshift describe-clusters
-
-　
-
-## route53
-
-aws route53 list-hosted-zones
-
-aws route53 list-health-checks
-
-　
-
-## S3
-
-aws s3 ls
-
-## SQS
-
-aws sqs list-queues
-
-　
-
-
+##### ・デフォルトの出力形式、出力先の決定、及び、起動オプションで選択できるよう変更

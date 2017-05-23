@@ -8,8 +8,6 @@ import (
 
 	"regexp"
 
-	"fmt"
-
 	fs_aws "github.com/sky0621/aws-describe-prj/aws"
 	"github.com/sky0621/aws-describe-prj/config"
 )
@@ -63,13 +61,13 @@ func mergeSqsInformation(queueURLs []*string, conf *config.SqsConfig) []SqsDescr
 		urlSeps := strings.Split(*url, "/")
 		qname := urlSeps[len(urlSeps)-1]
 		if f.In != "" && inFilter.FindString(qname) == "" {
-			fmt.Printf("Not match in filter: %v\n", qname)
+			//fmt.Printf("Not match in filter: %v\n", qname)
 			continue
 		}
 		nodisp := false
 		for _, filter := range outFilters {
 			if filter.FindString(qname) != "" {
-				fmt.Printf("Match out filter: %v\n", qname)
+				//fmt.Printf("Match out filter: %v\n", qname)
 				nodisp = true
 				break
 			}

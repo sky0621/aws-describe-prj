@@ -3,7 +3,7 @@
   template = "../../template/sqs.md"
 
     [aws.sqs.filter]
-    in = "fs-aws-*"
+    in = ""
     out = [".*[0-9]{8}", ".*test.*", ".*_[0-9a-zA-Z]{16}"]
 
     [aws.sqs.supplement."example-develop-queue01"]

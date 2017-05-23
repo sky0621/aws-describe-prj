@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"html/template"
 
+	"regexp"
+
 	fs_aws "github.com/sky0621/aws-describe-prj/aws"
 	"github.com/sky0621/aws-describe-prj/config"
 	"github.com/sky0621/aws-describe-prj/structure"
@@ -42,38 +44,39 @@ func (h *Ec2Handler) Handle() (output *bytes.Buffer, err error) {
 }
 
 type Ec2Description struct {
-	Usecase, Environment, InstanceType, PublicDnsName, PublicIpAddress, PrivateDnsName, PrivateIpAddress, InstanceState string
+	Usecase, Environment, InstanceName, InstanceType, PublicDnsName, PublicIpAddress, PrivateDnsName, PrivateIpAddress, InstanceState string
 }
 
 // TODO 要リファクタ
 func mergeEc2Information(reservations []*structure.Reservation, conf *config.Ec2Config) []Ec2Description {
 	descs := []Ec2Description{}
-	//f := conf.Filter
-	//inFilter := regexp.MustCompile(f.In)
-	//var outFilters []*regexp.Regexp
-	//for _, out := range f.Out {
-	//	outFilters = append(outFilters, regexp.MustCompile(out))
-	//}
+	f := conf.Filter
+	inFilter := regexp.MustCompile(f.In)
+	var outFilters []*regexp.Regexp
+	for _, out := range f.Out {
+		outFilters = append(outFilters, regexp.MustCompile(out))
+	}
 	for _, res := range reservations {
-		//if f.In != "" && inFilter.FindString(qname) == "" {
-		//	fmt.Printf("Not match in filter: %v\n", qname)
-		//	continue
-		//}
-		//nodisp := false
-		//for _, filter := range outFilters {
-		//	if filter.FindString(qname) != "" {
-		//		fmt.Printf("Match out filter: %v\n", qname)
-		//		nodisp = true
-		//		break
-		//	}
-		//}
-		//if nodisp {
-		//	continue
-		//}
+		if f.In != "" && inFilter.FindString(res.InstanceName) == "" {
+			//fmt.Printf("Not match in filter: %v\n", res.InstanceName)
+			continue
+		}
+		nodisp := false
+		for _, filter := range outFilters {
+			if filter.FindString(res.InstanceName) != "" {
+				//fmt.Printf("Match out filter: %v\n", res.InstanceName)
+				nodisp = true
+				break
+			}
+		}
+		if nodisp {
+			continue
+		}
 		s := conf.Supplements[res.InstanceID]
 		desc := Ec2Description{
 			Usecase:          s.Usecase,
 			Environment:      s.Environment,
+			InstanceName:     res.InstanceName,
 			InstanceType:     res.InstanceType,
 			PublicDnsName:    res.PublicDnsName,
 			PublicIpAddress:  res.PublicIpAddress,

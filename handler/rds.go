@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"html/template"
 
+	"regexp"
+
 	fs_aws "github.com/sky0621/aws-describe-prj/aws"
 	"github.com/sky0621/aws-describe-prj/config"
 	"github.com/sky0621/aws-describe-prj/structure"
@@ -43,39 +45,39 @@ func (h *RdsHandler) Handle() (output *bytes.Buffer, err error) {
 }
 
 type RdsDescription struct {
-	Type, Environment, DBInstanceClass, DBName, EndpointAddress, Engine, EngineVersion, MasterUsername, DBInstanceStatus string
-	EndpointPort                                                                                                         int64
+	Usecase, Environment, DBInstanceClass, DBName, EndpointAddress, Engine, EngineVersion, MasterUsername, DBInstanceStatus string
+	EndpointPort                                                                                                            int64
 }
 
 // TODO 要リファクタ
 func mergeRdsInformation(instances []*structure.RdsInstance, conf *config.RdsConfig) []RdsDescription {
 	descs := []RdsDescription{}
-	//f := conf.Filter
-	//inFilter := regexp.MustCompile(f.In)
-	//var outFilters []*regexp.Regexp
-	//for _, out := range f.Out {
-	//	outFilters = append(outFilters, regexp.MustCompile(out))
-	//}
+	f := conf.Filter
+	inFilter := regexp.MustCompile(f.In)
+	var outFilters []*regexp.Regexp
+	for _, out := range f.Out {
+		outFilters = append(outFilters, regexp.MustCompile(out))
+	}
 	for _, res := range instances {
 		//fmt.Printf("%#v\n", res)
-		//if f.In != "" && inFilter.FindString(qname) == "" {
-		//	fmt.Printf("Not match in filter: %v\n", qname)
-		//	continue
-		//}
-		//nodisp := false
-		//for _, filter := range outFilters {
-		//	if filter.FindString(qname) != "" {
-		//		fmt.Printf("Match out filter: %v\n", qname)
-		//		nodisp = true
-		//		break
-		//	}
-		//}
-		//if nodisp {
-		//	continue
-		//}
-		s := conf.Supplements["res.XXX"]
+		if f.In != "" && inFilter.FindString(res.EndpointAddress) == "" {
+			//fmt.Printf("Not match in filter: %v\n", res.EndpointAddress)
+			continue
+		}
+		nodisp := false
+		for _, filter := range outFilters {
+			if filter.FindString(res.EndpointAddress) != "" {
+				//fmt.Printf("Match out filter: %v\n", res.EndpointAddress)
+				nodisp = true
+				break
+			}
+		}
+		if nodisp {
+			continue
+		}
+		s := conf.Supplements[res.EndpointAddress]
 		desc := RdsDescription{
-			Type:             s.Usecase,
+			Usecase:          s.Usecase,
 			Environment:      s.Environment,
 			DBInstanceClass:  res.DBInstanceClass,
 			DBName:           res.DBName,
