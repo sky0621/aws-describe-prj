@@ -20,11 +20,9 @@ AWS_REGION=ap-northeast-1
 
 ## コマンド
 
-### get SQS information
+#### $ awsdescribe sqs
 
-$ awsdescribe sqs
-
-[output example]
+[出力例]
 
 SQS
 
@@ -35,11 +33,9 @@ SQS
 | ステージング環境用キュー１ | staging | example-staging-queue01 | https://sqs.ap-northeast-1.amazonaws.com/0123456789/example-staging-queue01 |
 
 
-### get EC2 information
+#### $ awsdescribe ec2
 
-$ awsdescribe ec2
-
-[output example]
+[出力例]
 
 EC2
 
@@ -49,11 +45,9 @@ EC2
 |  |  |  | t2.micro |  |  | ip-192-168-1-4.ap-northeast-1.compute.internal | 192.168.1.4 | stopped |
 
 
-### get RDS information
+#### $ awsdescribe rds
 
-$ awsdescribe rds
-
-[output example]
+[出力例]
 
 RDS
 
