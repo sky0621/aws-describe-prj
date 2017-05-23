@@ -40,7 +40,7 @@ SQS
 EC2
 
 | usecase | environment | instance name | instance type | [public] hostname | [public] IP | [private] hostname | [private] IP | state |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 開発環境用インスタンス | develop | PublisherService | t2.micro | ec2-9999999.ap-northeast-1.compute.amazonaws.com | 99.999.999.99 | ip-9999999.ap-northeast-1.compute.internal | 99.999.999.99 | running |
 |  |  |  | t2.micro |  |  | ip-192-168-1-4.ap-northeast-1.compute.internal | 192.168.1.4 | stopped |
 
