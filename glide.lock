@@ -1,10 +1,10 @@
-hash: 253e4cbdb364567ed5dc06e3bea82952299ef1b3ce35a0b28eed8f489586bdbe
-updated: 2017-05-10T01:35:33.7312369+09:00
+hash: 55fd7acb64b23c32909cada5d15f36f2bc183f62521cbaccbb31c05e3e8f0097
+updated: 2017-05-24T23:48:07.405573+09:00
 imports:
 - name: github.com/armon/go-radix
   version: 4239b77079c7b5d1243b7b4736304ce8ddb6f0f2
 - name: github.com/aws/aws-sdk-go
-  version: fa7f88097f64d1a2bcc65f9b9b547f363082d496
+  version: 73b6153078ca6e3fac11a9b86c819e0f82c42aa2
   subpackages:
   - aws
   - aws/awserr
@@ -23,10 +23,13 @@ imports:
   - aws/session
   - aws/signer/v4
   - private/protocol
+  - private/protocol/ec2query
   - private/protocol/query
   - private/protocol/query/queryutil
   - private/protocol/rest
   - private/protocol/xml/xmlutil
+  - service/ec2
+  - service/rds
   - service/sqs
   - service/sts
 - name: github.com/bgentry/speakeasy
@@ -53,7 +56,7 @@ imports:
 - name: github.com/mattn/go-isatty
   version: 30a891c33c7cde7b02a981314b4228ec99380cca
 - name: github.com/mitchellh/cli
-  version: ee8578a9c12a5bb9d55303b9665cc448772c81b8
+  version: b481eac70eea3ad671b7c360a013f89bb759b252
 - name: github.com/mitchellh/mapstructure
   version: bfdb1a85537d60bc7e954e600c250219ea497417
 - name: github.com/pelletier/go-buffruneio
