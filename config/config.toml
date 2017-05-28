@@ -43,3 +43,14 @@
     [aws.rds.supplement."i-0123456789"]
     usecase = "開発環境用インスタンス"
     environment = "develop"
+
+  [aws.dynamodb]
+  template = "../../template/dynamodb.md"
+
+    [aws.dynamodb.filter]
+    in = ""
+    out = []
+
+    [aws.dynamodb.supplement."m_movie"]
+    usecase = "ムービー"
+    environment = "develop"

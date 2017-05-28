@@ -57,6 +57,17 @@ RDS
 | ステージング環境用 | staging | db.t2.micro | testdb | gginstance.xxxxxxxx.ap-northeast-1.rds.amazonaws.com | 3306 | mysql | 5.6.27 | testuser | available |
 
 
+#### $ awsdescribe dynamodb
+
+[出力例]
+
+DynamoDB
+
+| usecase | environment | table name |
+| :--- | :--- | :--- |
+| ムービー | develop | m_movie |
+
+
 ## 改修予定
 
 ##### ・ソート機能を追加

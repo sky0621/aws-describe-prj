@@ -7,6 +7,7 @@ import (
 	"flag"
 
 	"github.com/sky0621/aws-describe-prj/config"
+	"github.com/sky0621/aws-describe-prj/subcommand/dynamodb"
 	"github.com/sky0621/aws-describe-prj/subcommand/ec2"
 	"github.com/sky0621/aws-describe-prj/subcommand/rds"
 	"github.com/sky0621/aws-describe-prj/subcommand/sqs"
@@ -42,5 +43,6 @@ func setupFacade(cxt *gofacade.Context) *gofacade.Facade {
 	fcd.AddCommand(sqs.Name, sqs.Command(cxt, Name))
 	fcd.AddCommand(ec2.Name, ec2.Command(cxt, Name))
 	fcd.AddCommand(rds.Name, rds.Command(cxt, Name))
+	fcd.AddCommand(dynamodb.Name, dynamodb.Command(cxt, Name))
 	return fcd
 }

@@ -1,10 +1,10 @@
-hash: 55fd7acb64b23c32909cada5d15f36f2bc183f62521cbaccbb31c05e3e8f0097
-updated: 2017-05-24T23:48:07.405573+09:00
+hash: e7db928d5d7c3f78c95f6b744c6640ac70161a0dc857ac1b05716b87e64d01c0
+updated: 2017-05-29T06:12:30.7082103+09:00
 imports:
 - name: github.com/armon/go-radix
   version: 4239b77079c7b5d1243b7b4736304ce8ddb6f0f2
 - name: github.com/aws/aws-sdk-go
-  version: 73b6153078ca6e3fac11a9b86c819e0f82c42aa2
+  version: e0cdae7a65ba3a5e66a0af747a7b3967ddac099c
   subpackages:
   - aws
   - aws/awserr
@@ -24,10 +24,13 @@ imports:
   - aws/signer/v4
   - private/protocol
   - private/protocol/ec2query
+  - private/protocol/json/jsonutil
+  - private/protocol/jsonrpc
   - private/protocol/query
   - private/protocol/query/queryutil
   - private/protocol/rest
   - private/protocol/xml/xmlutil
+  - service/dynamodb
   - service/ec2
   - service/rds
   - service/sqs

@@ -87,6 +87,27 @@ func NewRdsConfig() *RdsConfig {
 	}
 }
 
+type DynamoDBConfig struct {
+	Template    string
+	Filter      Filter
+	Supplements map[string]Supplement
+}
+
+func NewDynamoDBConfig() *DynamoDBConfig {
+	var s map[string]Supplement
+	err := viper.UnmarshalKey("aws.dynamodb.supplement", &s)
+	if err != nil {
+		panic(err)
+	}
+	var f Filter
+	err = viper.UnmarshalKey("aws.dynamodb.filter", &f)
+	return &DynamoDBConfig{
+		Template:    viper.GetString("aws.dynamodb.template"),
+		Filter:      f,
+		Supplements: s,
+	}
+}
+
 type Filter struct {
 	In  string
 	Out []string

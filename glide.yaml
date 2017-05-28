@@ -1,11 +1,12 @@
 package: github.com/sky0621/aws-describe-prj
 import:
 - package: github.com/aws/aws-sdk-go
-  version: ~1.8.28
+  version: ~1.8.30
   subpackages:
   - aws
   - aws/credentials
   - aws/session
+  - service/dynamodb
   - service/ec2
   - service/rds
   - service/sqs
