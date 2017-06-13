@@ -15,13 +15,8 @@ type RdsHandler struct {
 }
 
 func (h *RdsHandler) Handle() (output *bytes.Buffer, err error) {
-	sess, err := fs_aws.NewSession()
-	if err != nil {
-		return nil, err
-	}
-
 	// とりあえずRdsの情報
-	info, err := fs_aws.GetRdsInformation(fs_aws.NewRds(sess))
+	info, err := fs_aws.GetRdsInformation(fs_aws.NewRds(fs_aws.NewSession()))
 	if err != nil {
 		return nil, err
 	}

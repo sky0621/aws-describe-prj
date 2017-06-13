@@ -15,13 +15,8 @@ type Ec2Handler struct {
 }
 
 func (h *Ec2Handler) Handle() (output *bytes.Buffer, err error) {
-	sess, err := fs_aws.NewSession()
-	if err != nil {
-		return nil, err
-	}
-
 	// とりあえずEc2の情報
-	info, err := fs_aws.GetEc2Information(fs_aws.NewEc2(sess))
+	info, err := fs_aws.GetEc2Information(fs_aws.NewEc2(fs_aws.NewSession()))
 	if err != nil {
 		return nil, err
 	}

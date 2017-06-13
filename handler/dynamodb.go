@@ -16,13 +16,8 @@ type DynamoDBHandler struct {
 }
 
 func (h *DynamoDBHandler) Handle() (output *bytes.Buffer, err error) {
-	sess, err := fs_aws.NewSession()
-	if err != nil {
-		return nil, err
-	}
-
 	// とりあえずDynamoDBの情報
-	info, err := fs_aws.GetDynamoDBInformation(fs_aws.NewDynamoDB(sess))
+	info, err := fs_aws.GetDynamoDBInformation(fs_aws.NewDynamoDB(fs_aws.NewSession()))
 	if err != nil {
 		return nil, err
 	}

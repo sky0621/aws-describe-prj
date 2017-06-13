@@ -16,13 +16,8 @@ type SqsHandler struct {
 }
 
 func (h *SqsHandler) Handle() (output *bytes.Buffer, err error) {
-	sess, err := fs_aws.NewSession()
-	if err != nil {
-		return nil, err
-	}
-
 	// とりあえずSQSの情報
-	info, err := fs_aws.GetSqsInformation(fs_aws.NewSqs(sess))
+	info, err := fs_aws.GetSqsInformation(fs_aws.NewSqs(fs_aws.NewSession()))
 	if err != nil {
 		return nil, err
 	}
