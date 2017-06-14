@@ -38,6 +38,9 @@ func NewSqsConfig() *SqsConfig {
 	}
 	var f Filter
 	err = viper.UnmarshalKey("aws.sqs.filter", &f)
+	if err != nil {
+		panic(err)
+	}
 	return &SqsConfig{
 		Template:    viper.GetString("aws.sqs.template"),
 		Filter:      f,
@@ -59,6 +62,9 @@ func NewEc2Config() *Ec2Config {
 	}
 	var f Filter
 	err = viper.UnmarshalKey("aws.ec2.filter", &f)
+	if err != nil {
+		panic(err)
+	}
 	return &Ec2Config{
 		Template:    viper.GetString("aws.ec2.template"),
 		Filter:      f,
@@ -80,6 +86,9 @@ func NewRdsConfig() *RdsConfig {
 	}
 	var f Filter
 	err = viper.UnmarshalKey("aws.rds.filter", &f)
+	if err != nil {
+		panic(err)
+	}
 	return &RdsConfig{
 		Template:    viper.GetString("aws.rds.template"),
 		Filter:      f,
@@ -101,6 +110,9 @@ func NewDynamoDBConfig() *DynamoDBConfig {
 	}
 	var f Filter
 	err = viper.UnmarshalKey("aws.dynamodb.filter", &f)
+	if err != nil {
+		panic(err)
+	}
 	return &DynamoDBConfig{
 		Template:    viper.GetString("aws.dynamodb.template"),
 		Filter:      f,
